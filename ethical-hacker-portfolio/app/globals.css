@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 95%;
+  --card: 0 0% 10%;
+  --card-foreground: 0 0% 95%;
+  --popover: 0 0% 10%;
+  --popover-foreground: 0 0% 95%;
+  --primary: 142.1 70.6% 45.3%;
+  --primary-foreground: 144.9 80.4% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 12 6.5% 15.1%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 85.7% 97.3%;
+  --border: 142.4 33.3% 20%;
+  --input: 240 3.7% 15.9%;
+  --ring: 142.4 71.8% 29.2%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e3a29;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+/* Terminal blinking cursor */
+.terminal-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Remove the anchor link smooth scrolling behavior that might be causing issues */
+/* Replace this:
+a[href^="#"] {
+  scroll-behavior: smooth;
+}
+*/
+
+/* With this more targeted approach: */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+/* Add a class for smooth scrolling that we can apply selectively */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Prevent content jump on page load */
+body {
+  min-height: 100%;
+  overflow-y: scroll;
+}
+
+/* Improve scrolling performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile touch optimizations */
+@media (max-width: 768px) {
+  html,
+  body {
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent text selection during scrolling on mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Optimize buttons for touch */
+  button,
+  a {
+    touch-action: manipulation;
+    cursor: pointer;
+    min-height: 44px; /* Minimum touch target size */
+  }
+}
+
+/* Fix scrolling issues */
+html,
+body {
+  overflow-x: hidden;
+  position: relative;
+  height: auto;
+  min-height: 100%;
+}
+
+section {
+  position: relative;
+  overflow: visible;
+}
+
+/* Ensure content doesn't get stuck */
+.overflow-visible {
+  overflow: visible !important;
+}
+
+/* Improve section transitions */
+section + section {
+  position: relative;
+  z-index: 1;
+}
+
+/* Add these rules at the bottom of the file to force scrolling to work */
+
+html,
+body {
+  height: 100%;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  position: static !important; /* Remove any positioning that might interfere */
+  touch-action: auto !important;
+}
+
+/* Reset any properties that might block scrolling */
+#__next,
+main,
+div,
+section {
+  max-height: none !important;
+  overflow: visible !important;
+  position: static !important;
+  touch-action: auto !important;
+}
+
+/* Force all sections to be visible */
+section {
+  display: block !important;
+  height: auto !important;
+  min-height: auto !important;
+  position: relative !important;
+  z-index: auto !important;
+}
+
+/* Remove any fixed positioning that might interfere with scrolling */
+.fixed:not(header):not(.scroll-to-top) {
+  position: relative !important;
+}
+
+/* Ensure the page is scrollable */
+body {
+  min-height: 100vh;
+  width: 100%;
+  overscroll-behavior: auto;
+}
